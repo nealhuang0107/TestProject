@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="end">
+            <ion-button (click)="Close()">
+                <ion-icon color='light' slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center"> popover page (ion-modal)</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-text>接收到參數1:{{this.ReceivedParam1}}</ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-text>接收到參數2:{{this.ReceivedParam2}}</ion-text>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
+<ion-footer>
+    <ion-row class="ion-justify-content-center">
+        <ion-button color='primary' size="default" slot (click)="OK()">確定</ion-button>
+    </ion-row>
+</ion-footer>

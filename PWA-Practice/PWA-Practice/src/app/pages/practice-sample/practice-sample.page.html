@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+            <ion-button (click)="gohome()">
+                <ion-icon slot="icon-only" name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">下載範例與快速安裝</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            <h1>練習範例下載</h1>
+        </ion-list-header>
+        <div style="padding-left: 20px;">
+            <ion-item tappable (click)="APISampleCode()">
+                <ion-label color="primary" >1.下載練習範例</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>2.解壓縮至 Local 目錄 D:\APP\PWA-Practice</ion-label>
+            </ion-item><ion-item>
+                <ion-label>3.\PWA-Practice\APP.code-workspace 移至 D:\APP\</ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            <h1>專案快速安裝</h1>
+        </ion-list-header>
+        <div style="padding-left: 20px;">
+            <ion-item>
+                <ion-label>1.執行 D:\APP\PWA-Practice\npm i</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>2.執行 D:\APP\PWA-Practice\ionic s</ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+            <ion-button (click)="gohome()">
+                <ion-icon slot="icon-only" name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">Ionic Page Life Cycle</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            <h1>Ionic Page Life Cycle</h1>
+        </ion-list-header>
+        <div style="padding-left: 20px;">
+            <ion-item tappable (click)="IPLC()">
+                <ion-label color="primary">What's Ionic-Page-Life-Cycle?</ion-label>
+            </ion-item>
+            <ion-item [hidden]="false">
+                <img src="assets/icon/page-life-cycle2.png" />
+            </ion-item>
+        </div>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header>
+            <h1>實證 Ionic Page Life Cycle</h1>
+        </ion-list-header>
+        <div style="padding-left: 20px;">
+            <ion-item>
+                <ion-label>在param-passing-list.page.ts 各函式中加入訊息</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>在param-passing-edit.page.ts 各函式中加入訊息</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>ex:this.api.Alert(這是list的 constructor)</ion-label>
+            </ion-item>
+
+        </div>
+    </ion-list>
+
+</ion-content>
