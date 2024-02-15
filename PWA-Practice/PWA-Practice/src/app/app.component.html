@@ -1,0 +1,33 @@
+<ion-app>
+    <ion-split-pane when="(min-width: 850px)" contentId="mainContent">
+        <ion-menu side="start" contentId="mainContent" menuId="mainMenu" type="overlay">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-buttons slot="start">
+                        <ion-back-button></ion-back-button>
+                        <ion-button>
+                            <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                    <ion-title class="ion-text-center">PWA Practice</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list *ngFor="let i of totalmenulist" class="ion-no-padding">
+                    <ion-item *ngIf="IsMainMenu(i.parent_id)" tappable (click)="MenuClick(i)">
+                        <ion-icon class="icon-style" [name]="i.icon_name"></ion-icon>
+                        <ion-text>{{i.menu_name}}</ion-text>
+                    </ion-item>
+                    <ion-item-group [id]="i.menu_id" [hidden]="true" *ngIf="IsSubMenu(i.parent_id)"
+                        class="ion-padding-start">
+                        <ion-item tappable (click)="SubMenuClick(i)">
+                            <ion-icon class="icon-style1" [name]="i.icon_name"></ion-icon>
+                            <ion-text>{{i.menu_name}}</ion-text>
+                        </ion-item>
+                    </ion-item-group>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet id="mainContent"></ion-router-outlet>
+    </ion-split-pane>
+</ion-app>

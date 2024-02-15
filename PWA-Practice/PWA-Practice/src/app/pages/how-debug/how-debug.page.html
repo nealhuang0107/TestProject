@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+            <ion-button (click)="gohome()">
+                <ion-icon slot="icon-only" name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">如何 debug</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            <h1>常發生的錯誤</h1>
+        </ion-list-header>
+        <div>
+            <ion-item>
+                <ion-label>1.API 不存在</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>2.API build 時就已經錯誤</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>3.API SQL 錯誤或取出資料有問題</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>4.API 方法名稱、參數或順序與 TypeScript 呼叫不同</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>5.API 沒有 [WebMethod] 修飾詞</ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            <h1>API</h1>
+        </ion-list-header>
+        <div>
+            <ion-item>
+                <ion-label>VS2019 啟動 debug mode</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Chrome 直接輸入api url 讓錯誤跳出</ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            <h1>TypeScript</h1>
+        </ion-list-header>
+        <div>
+            <ion-item>
+                <ion-label>使用 console.log()</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>local 執行時設定中斷點(Chrome)</ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+
+</ion-content>

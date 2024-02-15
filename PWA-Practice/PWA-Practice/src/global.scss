@@ -1,0 +1,190 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+html {
+    font-size: 50%;
+}
+@media (max-width: 1024px) {
+    html { font-size: 62.5%; };
+}
+
+@media (min-width: 1024px) {
+    body {
+        max-width: 1024px;
+        margin: 0 auto;
+        position: relative;
+        // border: 1px solid red;
+        // -webkit-transform: translateX(-50%); /* Safari */
+        // transform: translateX(-50%);
+        // left: 50%;
+    }
+}
+
+ion-list {
+    padding: 6px;
+    //border-bottom: 1px solid lightgrey;
+}
+ion-item {
+    padding: 4px;
+}
+ion-row {
+    width: 100%;
+    padding: 6px;
+    //border-bottom: 1px solid lightgrey;
+}
+
+
+ion-card-content {
+    color: black;
+    border-top: 3px solid Green;
+    padding: 20px;
+}
+ion-card-title {
+    color:rgb(53, 78, 223);
+    height: 20px;
+    padding: 10px 10px;
+    margin: 0px 0px 20px 0px;
+    border-bottom: 1px solid lightgrey;
+}
+ion-tab-bar {
+    height: 55px;
+}
+ion-tab-button {     
+    color: whitesmoke;
+    // ion-icon {
+    //     font-size: 30px;
+    //   }
+    ion-label {  
+        font-size: 13px;
+    }
+}
+.myBorder{
+    border-bottom: 1px solid lightgrey;
+    padding: 0%;
+    height: 30px;
+    font-size: 17px;
+}
+.myBorder2{
+    @extend .myBorder;
+    font-size: 17px;
+}
+
+.my-toast {
+    --width: 90%;
+    --max-width: 300px;
+    --border-radius: 3px;
+    font-size: 2rem;
+}
+
+.my-modal {
+    // padding: 60px 10px 0px 10px;
+    // background: rgba(0,0,0,0.5);
+    
+    // > .modal-wrapper {
+    //     border-radius: 20px 0px 0px 0px !important;
+    // }
+    
+    height: auto;
+}
+// .modal-wrapper {
+//     //position: absolute !important;
+//     //width: 400px !important;
+//     height: 800px !important;
+//     // top: 0 !important;
+//     // bottom: 0 !important;
+//     // left: 0 !important;
+//     // right: 0 !important;
+//     // margin: auto !important;
+// }
+
+
+:root {
+    div,ion-content, ion-list, ion-item, ion-row, ion-footer, ion-card-content, ion-card-title, ion-segment-button, ion-list-header {
+        font-size: 2rem;
+        line-height: 23px;
+    }
+}
+
+
+
+@page {
+    size: A4 portrait;
+    margin-top: 0.8cm;
+    margin-left: 0.8cm;
+    margin-right: 0.8cm;
+    margin-bottom: 0.8cm;
+    // orphans:4;//頁面最後一個段落的行數
+    // widows:2;//頁面第一個段落的行數
+
+    // /* 設定列印紙張大小 寬 高 橫向 */
+    // size: 297mm 210mm landscape;
+    // /* page用margin才能隱藏掉瀏覽器列印的 "頁首及頁尾" 選項 */
+    // margin: 0px;
+}
+
+@media print{
+    .imgs{
+        width: 340px;
+        height:270px;
+    }
+    .print-font-size{
+        font-size: smaller;
+    }
+    .no-print{
+        display: none;
+    }
+}
+
+
+.print{
+    page-break-after:always; /*print分頁面*/
+ }
+
+
+.item-radio-checked.item ion-label {
+    color:blue !important; //your color here for selected option  
+}
+
+.popover-wrapper .popover-content{
+    position: relative !important;
+    // margin: 0 auto !important;
+    top: auto !important;
+    left: auto !important;
+    width: fit-content !important;
+    max-height: 400px !important;
+    //transform: translate(-50%, -50%) !important;
+}
+
+ion-select {
+    min-width:fit-content;
+}
+
+
+
+
+
+
