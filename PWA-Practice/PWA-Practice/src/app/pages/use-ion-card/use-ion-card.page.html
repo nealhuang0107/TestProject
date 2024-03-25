@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+            <ion-button (click)="gohome()">
+                <ion-icon slot="icon-only" name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">ion-card 運用</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+            <ion-card-title>Original ion-card</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <br>
+            <ion-text>Original ion-card-content</ion-text>
+            <br>
+        </ion-card-content>
+    </ion-card>
+
+
+    <ion-card style="background-color:rgb(243, 155, 114)">
+        <ion-card-title style="border: 0px;">
+            <ion-text style="color: white;">Card 1</ion-text>
+        </ion-card-title>
+        <ion-list style="padding-top: 0px;">
+            <ion-text>Card1 content.....</ion-text>
+            <br>
+        </ion-list>
+    </ion-card>
+
+    <ion-list style="background-color: lightgray;" class="ion-no-padding">
+        <ion-row>
+            <ion-col size="12" size-sm>
+                <ion-card style="background-color:rgb(132, 119, 216)">
+                    <ion-card-title style="border: 0px;">
+                        <ion-text style="color: white;">Card 2</ion-text>
+                    </ion-card-title>
+                    <ion-list>
+                        <ion-text>Card2 content.....</ion-text>
+                        <br>
+                    </ion-list>
+
+                </ion-card>
+            </ion-col>
+            <ion-col size="12" size-sm>
+                <ion-card style="background-color:rgb(132, 119, 216)">
+                    <ion-card-title style="border: 0px;">
+                        <ion-text style="color: white;">Card 3</ion-text>
+                    </ion-card-title>
+                    <ion-list>
+                        <ion-text>Card3 content.....</ion-text>
+                        <br>
+                    </ion-list>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+
+    <ion-list style="padding-left: 20px;background-color: lightgray;">
+        <div class="style1">
+            <h5>Card 4</h5>
+            <ion-item> 1234567890</ion-item>
+            <ion-item> 1234567890</ion-item>
+        </div>
+        <p></p>
+    </ion-list>
+
+</ion-content>
