@@ -9,7 +9,7 @@ from pathlib import Path
 from datetime import datetime
 from bs4 import BeautifulSoup
 ##Telegram 機器人ID
-bot = telebot.TeleBot('8097937503:AAGihoDqtkUqXT2qI73wnBp8fuj8Y_ruHaw')
+bot = telebot.TeleBot('###')
 # 2025-04-01 LINE NOTIFY API 即將關閉
 # LING NOIFTY 推播功能即將結束
 
@@ -115,7 +115,7 @@ def SendPhotoLineNotify(msgString,imagePath):
 ##寄送圖片-Telegram
 def SendPhotoTelegramNotify(msgString,imagePath):
    
-    chat_ID = '1541917393'
+    chat_ID = '####'
     with open(imagePath, 'rb') as photo:
         bot.send_message(chat_ID, msgString)
         bot.send_photo(chat_ID, photo)
