@@ -1,108 +1,103 @@
-# res://scenes/Main.gd
 extends Node2D
 
-const BOARD_COLS := 10
-const BOARD_ROWS := 20
-const CELL_SIZE := 32
+const BOARD_WIDTH = 10
+const BOARD_HEIGHT = 20
+const CELL_SIZE = 32
 
-@onready var board_node = get_node_or_null("Board")
-@onready var score_label = get_node_or_null("CanvasLayer/ScoreLabel")
-@onready var game_over_label = get_node_or_null("CanvasLayer/GameOverLabel")
-@onready var restart_button = get_node_or_null("CanvasLayer/RestartButton")
+var board = []  # 棋盤陣列：0 = 空, 1 = 佔用
 
-var board = []
-var score := 0
-var current_tetro = null
-var tetro_scene := preload("res://scenes/Tetromino.tscn")
+@onready var tetromino_scene = preload("res://scenes/Tetromino.tscn")
+var current_tetromino
 
 func _ready():
-	_init_board()
-	_reset_game()
-	restart_button.pressed.connect(_on_restart_pressed)
+	# 初始化棋盤
+	board.resize(BOARD_HEIGHT)
+	for y in range(BOARD_HEIGHT):
+		board[y] = []
+		board[y].resize(BOARD_WIDTH)
+		for x in range(BOARD_WIDTH):
+			board[y][x] = 0
 
-func _init_board():
-	board.resize(BOARD_ROWS)
-	for r in range(BOARD_ROWS):
-		board[r] = []
-		board[r].resize(BOARD_COLS)
-		for c in range(BOARD_COLS):
-			board[r][c] = null
+	queue_redraw()
+	spawn_tetromino()
 
-func _reset_game():
-	for child in board_node.get_children():
-		child.queue_free()
-	_init_board()
-	score = 0
-	_update_score()
-	game_over_label.visible = false
-	restart_button.visible = false
-	_spawn_tetromino()
+func _draw():
+	for y in range(BOARD_HEIGHT):
+		for x in range(BOARD_WIDTH):
+			var rect = Rect2(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+			# 背景
+			draw_rect(rect, Color(0.15, 0.15, 0.15))
+			# 被佔用的格子
+			if board[y][x] == 1:
+				draw_rect(rect, Color(1, 1, 1))
+			# 邊框
+			draw_rect(rect, Color(0.4, 0.4, 0.4), false, 1.0)
 
-func _spawn_tetromino():
-	var t = tetro_scene.instantiate()
-	board_node.add_child(t)
-	var start_pos = Vector2(4, 0)
-	var shapes = [
-		[Vector2(0,0), Vector2(1,0), Vector2(0,1), Vector2(1,1)],  # 方形
-		[Vector2(0,0), Vector2(1,0), Vector2(2,0), Vector2(3,0)],  # 長條
-		[Vector2(0,0), Vector2(1,0), Vector2(1,1), Vector2(2,1)],  # Z形
-		[Vector2(1,0), Vector2(0,1), Vector2(1,1), Vector2(2,1)],  # T形
-	]
-	var shape = shapes[randi() % shapes.size()]
-	t.start(shape, start_pos, self)
-	current_tetro = t
+# 生成新的方塊
+func spawn_tetromino():
+	current_tetromino = tetromino_scene.instantiate()
+	add_child(current_tetromino)
+	current_tetromino.start(self)
 
-func lock_tetromino(tetro: Node2D, cells: Array):
-	for rel in cells:
-		var col = int(tetro.board_pos.x + rel.x)
-		var row = int(tetro.board_pos.y + rel.y)
-		if row < 0:
-			_game_over()
-			return
-		board[row][col] = tetro
-	_check_lines()
+# 方塊落地固定
+func lock_tetromino(tetro):
+	var gx = int(tetro.grid_pos.x)
+	var gy = int(tetro.grid_pos.y)
+
+	for v in tetro.shape:
+		var x = int(gx + v.x)
+		var y = int(gy + v.y)
+		if y >= 0 and y < BOARD_HEIGHT and x >= 0 and x < BOARD_WIDTH:
+			board[y][x] = 1
+
 	tetro.queue_free()
-	_spawn_tetromino()
 
-func _check_lines():
-	var lines_cleared := 0
-	for row in range(BOARD_ROWS - 1, -1, -1):
-		if not board[row].has(null):
-			lines_cleared += 1
-			_clear_line(row)
-	# 下移方塊
-	if lines_cleared > 0:
-		_collapse_lines()
-		score += lines_cleared * 50
-		_update_score()
+	clear_full_lines()
+	queue_redraw()
+	spawn_tetromino()
 
-func _clear_line(row_idx):
-	for c in range(BOARD_COLS):
-		if board[row_idx][c]:
-			board[row_idx][c].queue_free()
-	board.remove_at(row_idx)
-	var new_row = []
-	new_row.resize(BOARD_COLS)
-	for i in range(BOARD_COLS):
-		new_row[i] = null
-	board.insert(0, new_row)
+# 檢查某位置是否可放方塊
+func is_valid_position(shape: Array, pos: Vector2) -> bool:
+	for v in shape:
+		var x = int(pos.x + v.x)
+		var y = int(pos.y + v.y)
+		if x < 0 or x >= BOARD_WIDTH:
+			return false
+		if y < 0 or y >= BOARD_HEIGHT:
+			return false
+		if board[y][x] == 1:
+			return false
+	return true
 
-func _collapse_lines():
-	for r in range(BOARD_ROWS - 1, -1, -1):
-		for c in range(BOARD_COLS):
-			var cell = board[r][c]
-			if cell:
-				cell.position.y = r * CELL_SIZE + CELL_SIZE * 0.5
+# 清除滿行
+func clear_full_lines():
+	var new_board = []
+	var cleared_lines = 0
 
-func _update_score():
-	score_label.text = "SCORE: %d" % score
+	# 從下往上檢查每一行
+	for y in range(BOARD_HEIGHT - 1, -1, -1):
+		var is_full = true
+		for x in range(BOARD_WIDTH):
+			if board[y][x] == 0:
+				is_full = false
+				break
 
-func _game_over():
-	game_over_label.visible = true
-	restart_button.visible = true
-	if current_tetro:
-		current_tetro.queue_free()
-	current_tetro = null
+		if not is_full:
+			new_board.insert(0, board[y].duplicate())
+		else:
+			cleared_lines += 1
 
-func _on_restart_pressed():
-	_reset_game()
+	# 新增空行在最上面
+	for i in range(cleared_lines):
+		var empty_row = []
+		empty_row.resize(BOARD_WIDTH)
+		for j in range(BOARD_WIDTH):
+			empty_row[j] = 0
+		new_board.insert(0, empty_row)
+
+	# 確保長度正確
+	while new_board.size() > BOARD_HEIGHT:
+		new_board.remove_at(0)
+
+	board = new_board
+	print("Cleared lines:", cleared_lines)
